@@ -4,6 +4,8 @@ const express = require('express');
 const insertHandler = require('../commons/handlers/insertHandler');
 const getHandler = require('../commons/handlers/getHandler');
 const bodyParser = require('body-parser');
+const devSchema = require('../commons/schemas/dev.schema');
+const Boom = require('boom');
 
 const server = () => {
   const app = express();
@@ -27,6 +29,13 @@ const server = () => {
 
     app.post('/express', async (req, res) => {
       try {
+
+        const payload = req.body;
+        const validation = devSchema.validate(payload);
+        if (validation.error) {
+          return res.send(Boom.badRequest('Bad input'));
+        }
+
         const response = await insertHandler.insertOne(req.body);
         return res.send(response);
       } catch (err) {
@@ -37,7 +46,7 @@ const server = () => {
       }
     });
 
-    app.listen(8080, () => console.log('Express is up on port 8080'))
+    app.listen(8080, () => console.log('Express is up on port 8080'));
   };
 
   return {

@@ -3,6 +3,8 @@
 const restify = require('restify');
 const insertHandler = require('../commons/handlers/insertHandler');
 const getHandler = require('../commons/handlers/getHandler');
+const devSchema = require('../commons/schemas/dev.schema');
+const Boom = require('boom');
 
 const server = () => {
   const start = () => {
@@ -32,6 +34,12 @@ const server = () => {
 
     restifyServer.post('/restify', async (req, res) => {
       try {
+        const payload = req.body;
+        const validation = devSchema.validate(payload);
+        if (validation.error) {
+          return res.send(Boom.badRequest('Bad input'));
+        }
+
         const response = await insertHandler.insertOne(req.body);
         return res.send(response);
       } catch (err) {

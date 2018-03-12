@@ -2,6 +2,7 @@
 
 const getHandler = require('../commons/handlers/getHandler');
 const insertHandler = require('../commons/handlers/insertHandler');
+const devSchema = require('../commons/schemas/dev.schema');
 
 const hapiControllers = (server) => {
 
@@ -9,15 +10,7 @@ const hapiControllers = (server) => {
     method: 'GET',
     path: '/hapi',
     options: {
-      // validate: {
-      //   params: getPostByFriendlyNameSchema,
-      // },
       handler: async (request, h) => {
-        // const post = await postHandler.getByFriendlyName(
-        //   request.params.category,
-        //   request.params.friendlyName
-        // );
-
         const filter = {
           name: request.query.name,
         };
@@ -32,9 +25,9 @@ const hapiControllers = (server) => {
     method: 'POST',
     path: '/hapi',
     options: {
-      // validate: {
-      //   params: getPostByFriendlyNameSchema,
-      // },
+      validate: {
+        payload: devSchema,
+      },
       handler: async (request, h) => {
 
         const insertedOnDb = await insertHandler.insertOne(request.payload);
