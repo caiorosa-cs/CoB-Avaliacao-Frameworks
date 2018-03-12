@@ -37,7 +37,7 @@ const server = () => {
       }
     });
 
-    app.listen(3000, () => console.log('Express is up on port 3000'))
+    app.listen(8080, () => console.log('Express is up on port 8080'))
   };
 
   return {

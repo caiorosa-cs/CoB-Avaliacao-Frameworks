@@ -42,7 +42,7 @@ const server = () => {
       }
     });
 
-    restifyServer.listen(3000, () => {
+    restifyServer.listen(8080, () => {
       console.log('%s listening at %s', restifyServer.name, restifyServer.url);
     });
   };

@@ -7,7 +7,7 @@ const server = () => {
   const start = async () => {
     const hapiServer = new Hapi.Server({
       host: '0.0.0.0',
-      port: process.env.PORT || '3000',
+      port: process.env.PORT || '8080',
     });
 
 
