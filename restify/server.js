@@ -35,14 +35,12 @@ const server = () => {
     restifyServer.post('/restify', async (req, res) => {
       try {
         const payload = req.body;
-        console.log(payload);
         const validation = devSchema.validate(payload);
         if (validation.error) {
           return res.send(Boom.badRequest('Bad input'));
         }
-        console.log(validation);
 
-        const response = await insertHandler.insertOne(req.body);
+        const response = await insertHandler.insertOne(payload);
         return res.send(response);
       } catch (err) {
         return res.send({

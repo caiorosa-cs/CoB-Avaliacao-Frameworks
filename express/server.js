@@ -29,16 +29,13 @@ const server = () => {
 
     app.post('/express', async (req, res) => {
       try {
-        console.log('body', req.body);
-
         const payload = req.body;
         const validation = devSchema.validate(payload);
-        console.log(validation);
         if (validation.error) {
           return res.send(Boom.badRequest('Bad input'));
         }
 
-        const response = await insertHandler.insertOne(req.body);
+        const response = await insertHandler.insertOne(payload);
         return res.send(response);
       } catch (err) {
         return res.send({
