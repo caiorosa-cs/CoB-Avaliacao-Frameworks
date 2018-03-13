@@ -29,9 +29,11 @@ const server = () => {
 
     app.post('/express', async (req, res) => {
       try {
+        console.log('body', req.body);
 
         const payload = req.body;
         const validation = devSchema.validate(payload);
+        console.log(validation);
         if (validation.error) {
           return res.send(Boom.badRequest('Bad input'));
         }
@@ -46,7 +48,7 @@ const server = () => {
       }
     });
 
-    app.listen(8080, () => console.log('Express is up on port 8080'));
+    app.listen(8081, () => console.log('Express is up on port 8081'));
   };
 
   return {
