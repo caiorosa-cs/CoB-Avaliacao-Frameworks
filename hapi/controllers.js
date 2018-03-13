@@ -24,16 +24,16 @@ const hapiControllers = (server) => {
   const post = {
     method: 'POST',
     path: '/hapi',
+    handler: async (request, h) => {
+
+      const insertedOnDb = await insertHandler.insertOne(request.payload);
+
+      return h.response(insertedOnDb)
+        .code(200);
+    },
     options: {
       validate: {
         payload: devSchema,
-      },
-      handler: async (request, h) => {
-
-        const insertedOnDb = await insertHandler.insertOne(request.payload);
-
-        return h.response(insertedOnDb)
-          .code(200);
       },
     },
   };

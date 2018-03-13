@@ -7,6 +7,6 @@ const devSchema = Joi.object({
   email: Joi.string().required(),
   phone: Joi.string().required(),
   position: Joi.string().required(),
-});
+}).required();
 
 module.exports = devSchema;
